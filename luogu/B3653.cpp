@@ -1,7 +1,8 @@
 #include <iostream>
+#define int long long
 using namespace std;
-int t[55][55], ans[55][55], n, m;
-int main() {
+int t[550][550], ans[550][550], n, m;
+signed main() {
     cin >> n >> m;
     for (int i = 1; i <= n; i++)
         for (int j = 1; j <= m; j++)
