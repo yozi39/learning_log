@@ -1,0 +1,56 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef pair<int,int> PII;
+
+const int N=5010,INF=0x3f3f3f3f;
+
+int n,m;
+vector<PII> a[N];
+int ans;
+
+int dist[N],st[N];
+
+int prim(){
+    memset(dist,0x3f,sizeof dist);
+    dist[1]=0;
+    
+    int ret=0;
+    //加入n个点
+    for(int i=1;i<=n;i++){
+        int t=0;
+        for(int j=1;j<=n;j++){
+            if(!st[j] && dist[j]<dist[t]){
+                t=j;
+            }
+        }
+
+        if(dist[t]==INF)return INF;
+        ret+=dist[t];
+        st[t]=1;
+
+        for(auto& v:a[t]){
+            int a=v.first,b=v.second;
+            //a[t]  t->a  权值b;
+            dist[a]=min(dist[a],b);
+        }
+    }
+    return ret;
+}
+
+int main(){
+    cin>>n>>m;
+    for(int i=1;i<=m;i++){
+        int x,y,z;cin>>x>>y>>z;
+        a[x].push_back({y,z});
+        a[y].push_back({x,z});
+    }
+
+    ans=prim();
+
+    if(ans==INF){
+        cout<<"orz";
+    }
+    else{
+        cout<<ans;
+    }
+}
